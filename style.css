@@ -1,0 +1,60 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+
+.card {
+    box-shadow: 0 2px 8px rgba(0,0,0,.1);
+    border: none;
+    border-radius: 8px;
+}
+
+.card-header {
+    border-radius: 8px 8px 0 0 !important;
+}
+
+.table {
+    background-color: white;
+}
+
+.table thead {
+    background-color: #f8f9fa;
+}
+
+.progress {
+    border-radius: 10px;
+}
+
+.btn {
+    border-radius: 6px;
+    padding: 8px 20px;
+}
+
+.form-control, .form-select {
+    border-radius: 6px;
+}
+
+.alert {
+    border-radius: 8px;
+}
+
+/* Star rating styling */
+.text-warning {
+    color: #ffc107 !important;
+    font-size: 1.2em;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .table-responsive {
+        font-size: 0.9em;
+    }
+}
