@@ -134,83 +134,123 @@ $stmt->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rekomendasi Museum</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <a class="navbar-brand" href="index.php">Museum Recommendation</a>
+            <a class="navbar-brand" href="index.php">
+                <i class="fas fa-museum me-2"></i>Museum Recommendation
+            </a>
             <div class="navbar-nav ms-auto">
-                <span class="navbar-text me-3">Halo, <?php echo htmlspecialchars($current_user); ?>!</span>
-                <a class="nav-link" href="index.php">Beranda</a>
-                <a class="nav-link" href="logout.php">Logout</a>
+                <span class="navbar-text me-3">
+                    <i class="fas fa-user-circle me-2"></i>Halo, <?php echo htmlspecialchars($current_user); ?>!
+                </span>
+                <a class="nav-link" href="index.php">
+                    <i class="fas fa-home me-1"></i>Beranda
+                </a>
+                <a class="nav-link" href="logout.php">
+                    <i class="fas fa-sign-out-alt me-1"></i>Logout
+                </a>
             </div>
         </div>
     </nav>
 
-    <div class="container mt-4">
-        <h2 class="mb-4">Rekomendasi Museum untuk Anda</h2>
+    <div class="container mt-4 mb-5">
+        <div class="hero-section fade-in">
+            <h1><i class="fas fa-star me-3"></i>Rekomendasi Museum untuk Anda</h1>
+            <p>Berdasarkan preferensi dan review Anda, berikut adalah museum yang kami rekomendasikan!</p>
+        </div>
         
         <?php if (count($user_reviews) == 0): ?>
-            <div class="alert alert-warning">
-                Anda belum memberikan review apapun. Silakan berikan review terlebih dahulu untuk mendapatkan rekomendasi.
-                <a href="index.php" class="alert-link">Kembali ke Beranda</a>
+            <div class="card fade-in">
+                <div class="card-body">
+                    <div class="empty-state">
+                        <i class="fas fa-inbox"></i>
+                        <h4>Belum Ada Review</h4>
+                        <p>Anda belum memberikan review apapun. Silakan berikan review terlebih dahulu untuk mendapatkan rekomendasi.</p>
+                        <a href="index.php" class="btn btn-primary">
+                            <i class="fas fa-arrow-left me-2"></i>Kembali ke Beranda
+                        </a>
+                    </div>
+                </div>
             </div>
         <?php elseif (count($predicted_ratings) == 0): ?>
-            <div class="alert alert-info">
-                Belum ada rekomendasi yang dapat diberikan. Coba berikan lebih banyak review untuk mendapatkan rekomendasi yang lebih akurat.
+            <div class="card fade-in">
+                <div class="card-body">
+                    <div class="empty-state">
+                        <i class="fas fa-search"></i>
+                        <h4>Belum Ada Rekomendasi</h4>
+                        <p>Belum ada rekomendasi yang dapat diberikan. Coba berikan lebih banyak review untuk mendapatkan rekomendasi yang lebih akurat.</p>
+                        <a href="index.php" class="btn btn-primary">
+                            <i class="fas fa-edit me-2"></i>Berikan Review Lagi
+                        </a>
+                    </div>
+                </div>
             </div>
         <?php else: ?>
-            <div class="row">
+            <div class="row fade-in">
                 <div class="col-md-12">
                     <div class="card mb-4">
-                        <div class="card-header bg-success text-white">
-                            <h4 class="mb-0">Museum yang Direkomendasikan</h4>
+                        <div class="card-header">
+                            <h4 class="mb-0">
+                                <i class="fas fa-trophy me-2"></i>Museum yang Direkomendasikan
+                            </h4>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Rank</th>
-                                            <th>Nama Museum</th>
-                                            <th>Prediksi Rating</th>
-                                            <th>Tingkat Keyakinan</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php 
-                                        $rank = 1;
-                                        foreach ($predicted_ratings as $museum => $data): 
-                                            $rating = $data['rating'];
-                                            $confidence = $data['confidence'];
-                                            $stars = '';
-                                            for ($i = 1; $i <= 5; $i++) {
-                                                $stars .= $i <= round($rating) ? '★' : '☆';
-                                            }
-                                        ?>
-                                            <tr>
-                                                <td><strong>#<?php echo $rank++; ?></strong></td>
-                                                <td><strong><?php echo htmlspecialchars($museum); ?></strong></td>
-                                                <td>
-                                                    <span class="text-warning"><?php echo $stars; ?></span>
-                                                    <span class="ms-2"><?php echo number_format($rating, 2); ?>/5.00</span>
-                                                </td>
-                                                <td>
-                                                    <div class="progress" style="height: 20px;">
-                                                        <div class="progress-bar" role="progressbar" 
-                                                             style="width: <?php echo min(100, ($confidence / 5) * 100); ?>%"
-                                                             aria-valuenow="<?php echo $confidence; ?>" 
-                                                             aria-valuemin="0" 
-                                                             aria-valuemax="5">
-                                                            <?php echo number_format($confidence, 2); ?>
+                            <div class="row">
+                                <?php 
+                                $rank = 1;
+                                foreach ($predicted_ratings as $museum => $data): 
+                                    $rating = $data['rating'];
+                                    $confidence = $data['confidence'];
+                                    $delay = ($rank - 1) * 0.1;
+                                ?>
+                                    <div class="col-md-6 mb-4 slide-in" style="animation-delay: <?php echo $delay; ?>s">
+                                        <div class="museum-card">
+                                            <div class="d-flex align-items-start mb-3">
+                                                <div class="badge-rank me-3">#<?php echo $rank++; ?></div>
+                                                <div class="flex-grow-1">
+                                                    <h5 class="mb-2">
+                                                        <i class="fas fa-museum text-primary me-2"></i>
+                                                        <?php echo htmlspecialchars($museum); ?>
+                                                    </h5>
+                                                    <div class="mb-3">
+                                                        <div class="rating-stars mb-2">
+                                                            <?php 
+                                                            for ($i = 1; $i <= 5; $i++) {
+                                                                $class = $i <= round($rating) ? 'star-filled' : 'star-empty';
+                                                                echo '<span class="' . $class . '">★</span>';
+                                                            }
+                                                            ?>
+                                                        </div>
+                                                        <div class="d-flex align-items-center">
+                                                            <span class="badge bg-primary me-2"><?php echo number_format($rating, 2); ?>/5.00</span>
+                                                            <small class="text-muted">
+                                                                <i class="fas fa-chart-line me-1"></i>Prediksi Rating
+                                                            </small>
                                                         </div>
                                                     </div>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
+                                                    <div>
+                                                        <label class="form-label small text-muted mb-2">
+                                                            <i class="fas fa-shield-alt me-1"></i>Tingkat Keyakinan
+                                                        </label>
+                                                        <div class="progress">
+                                                            <div class="progress-bar" role="progressbar" 
+                                                                 style="width: <?php echo min(100, ($confidence / 5) * 100); ?>%"
+                                                                 aria-valuenow="<?php echo $confidence; ?>" 
+                                                                 aria-valuemin="0" 
+                                                                 aria-valuemax="5">
+                                                                <?php echo number_format($confidence, 2); ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
                             </div>
                         </div>
                     </div>
@@ -218,44 +258,52 @@ $stmt->close();
             </div>
         <?php endif; ?>
 
-        <div class="row mt-4">
-            <div class="col-md-12">
-                <h3>Review Saya</h3>
-                <?php if (count($user_reviews) > 0): ?>
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Museum</th>
-                                    <th>Rating</th>
-                                    <th>Review</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($user_reviews as $review): ?>
-                                    <tr>
-                                        <td><?php echo htmlspecialchars($review['museum_name']); ?></td>
-                                        <td>
+        <?php if (count($user_reviews) > 0): ?>
+            <div class="row mt-5 slide-in">
+                <div class="col-md-12">
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-history"></i>
+                        </div>
+                        <h3 class="mb-0 ms-3">Review Saya</h3>
+                    </div>
+                    <div class="row">
+                        <?php foreach ($user_reviews as $review): ?>
+                            <div class="col-md-6 mb-3">
+                                <div class="review-card">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <h5 class="mb-0">
+                                            <i class="fas fa-museum text-primary me-2"></i>
+                                            <?php echo htmlspecialchars($review['museum_name']); ?>
+                                        </h5>
+                                    </div>
+                                    <div class="mb-2">
+                                        <div class="rating-stars">
                                             <?php 
                                             for ($i = 1; $i <= 5; $i++) {
-                                                echo $i <= $review['rating'] ? '★' : '☆';
+                                                $class = $i <= $review['rating'] ? 'star-filled' : 'star-empty';
+                                                echo '<span class="' . $class . '">★</span>';
                                             }
-                                            ?> (<?php echo $review['rating']; ?>)
-                                        </td>
-                                        <td><?php echo htmlspecialchars($review['review']); ?></td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
+                                            ?>
+                                            <span class="ms-2 text-muted">(<?php echo $review['rating']; ?>/5)</span>
+                                        </div>
+                                    </div>
+                                    <p class="mb-0 text-muted">
+                                        <i class="fas fa-quote-left me-2"></i>
+                                        <?php echo htmlspecialchars($review['review']); ?>
+                                    </p>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
                     </div>
-                <?php else: ?>
-                    <p class="text-muted">Anda belum memberikan review apapun.</p>
-                <?php endif; ?>
+                </div>
             </div>
-        </div>
+        <?php endif; ?>
 
-        <div class="mt-4">
-            <a href="index.php" class="btn btn-primary">Kembali ke Beranda</a>
+        <div class="text-center mt-4">
+            <a href="index.php" class="btn btn-primary btn-lg">
+                <i class="fas fa-arrow-left me-2"></i>Kembali ke Beranda
+            </a>
         </div>
     </div>
 

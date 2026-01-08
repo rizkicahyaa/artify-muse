@@ -39,53 +39,79 @@ if (isset($_SESSION['user_name'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistem Rekomendasi Museum</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <a class="navbar-brand" href="index.php">Museum Recommendation</a>
+            <a class="navbar-brand" href="index.php">
+                <i class="fas fa-museum me-2"></i>Museum Recommendation
+            </a>
             <div class="navbar-nav ms-auto">
                 <?php if (isset($_SESSION['user_name'])): ?>
-                    <span class="navbar-text me-3">Halo, <?php echo htmlspecialchars($_SESSION['user_name']); ?>!</span>
-                    <a class="nav-link" href="recommendations.php">Rekomendasi</a>
-                    <a class="nav-link" href="logout.php">Logout</a>
+                    <span class="navbar-text me-3">
+                        <i class="fas fa-user-circle me-2"></i>Halo, <?php echo htmlspecialchars($_SESSION['user_name']); ?>!
+                    </span>
+                    <a class="nav-link" href="recommendations.php">
+                        <i class="fas fa-star me-1"></i>Rekomendasi
+                    </a>
+                    <a class="nav-link" href="logout.php">
+                        <i class="fas fa-sign-out-alt me-1"></i>Logout
+                    </a>
                 <?php else: ?>
-                    <a class="nav-link" href="login.php">Login</a>
+                    <a class="nav-link" href="login.php">
+                        <i class="fas fa-sign-in-alt me-1"></i>Login
+                    </a>
                 <?php endif; ?>
             </div>
         </div>
     </nav>
 
-    <div class="container mt-4">
+    <div class="container mt-4 mb-5">
         <?php if (isset($_SESSION['success'])): ?>
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <div class="alert alert-success alert-dismissible fade show fade-in" role="alert">
+                <i class="fas fa-check-circle me-2"></i>
                 <?php echo $_SESSION['success']; unset($_SESSION['success']); ?>
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
         <?php endif; ?>
         
         <?php if (isset($_SESSION['error'])): ?>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <div class="alert alert-danger alert-dismissible fade show fade-in" role="alert">
+                <i class="fas fa-exclamation-circle me-2"></i>
                 <?php echo $_SESSION['error']; unset($_SESSION['error']); ?>
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
         <?php endif; ?>
         
-        <div class="row">
+        <div class="hero-section fade-in">
+            <h1><i class="fas fa-museum me-3"></i>Sistem Rekomendasi Museum</h1>
+            <p>Berikan review pada museum yang telah Anda kunjungi dan dapatkan rekomendasi museum terbaik untuk Anda!</p>
+        </div>
+        
+        <div class="row fade-in">
             <div class="col-md-12">
-                <h2 class="mb-4">Berikan Review Museum</h2>
+                <div class="d-flex align-items-center mb-4">
+                    <div class="icon-wrapper">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <h2 class="mb-0 ms-3">Berikan Review Museum</h2>
+                </div>
                 
                 <?php if (!isset($_SESSION['user_name'])): ?>
                     <div class="alert alert-warning">
-                        Silakan <a href="login.php">login</a> terlebih dahulu untuk memberikan review.
+                        <i class="fas fa-info-circle me-2"></i>
+                        Silakan <a href="login.php" class="alert-link fw-bold">login</a> terlebih dahulu untuk memberikan review.
                     </div>
                 <?php else: ?>
                     <form action="submit_review.php" method="POST">
-                        <div class="card mb-3">
+                        <div class="card mb-4">
                             <div class="card-body">
-                                <div class="mb-3">
-                                    <label for="museum_name" class="form-label">Pilih Museum</label>
+                                <div class="mb-4">
+                                    <label for="museum_name" class="form-label">
+                                        <i class="fas fa-museum me-2 text-primary"></i>Pilih Museum
+                                    </label>
                                     <select class="form-select" id="museum_name" name="museum_name" required>
                                         <option value="">-- Pilih Museum --</option>
                                         <?php foreach ($museums as $museum): ?>
@@ -100,18 +126,30 @@ if (isset($_SESSION['user_name'])) {
                                     </select>
                                 </div>
                                 
-                                <div class="mb-3">
-                                    <label for="rating" class="form-label">Rating (1-5)</label>
-                                    <input type="number" class="form-control" id="rating" name="rating" 
-                                           min="1" max="5" required>
+                                <div class="mb-4">
+                                    <label for="rating" class="form-label">
+                                        <i class="fas fa-star me-2 text-warning"></i>Rating (1-5)
+                                    </label>
+                                    <div class="d-flex align-items-center">
+                                        <input type="number" class="form-control me-3" id="rating" name="rating" 
+                                               min="1" max="5" required style="max-width: 100px;">
+                                        <div id="starPreview" class="rating-stars">
+                                            <span class="star-empty">☆☆☆☆☆</span>
+                                        </div>
+                                    </div>
                                 </div>
                                 
-                                <div class="mb-3">
-                                    <label for="review" class="form-label">Review</label>
-                                    <textarea class="form-control" id="review" name="review" rows="3" required></textarea>
+                                <div class="mb-4">
+                                    <label for="review" class="form-label">
+                                        <i class="fas fa-comment-alt me-2 text-primary"></i>Review
+                                    </label>
+                                    <textarea class="form-control" id="review" name="review" rows="4" 
+                                              placeholder="Tuliskan review Anda tentang museum ini..." required></textarea>
                                 </div>
                                 
-                                <button type="submit" class="btn btn-primary">Submit Review</button>
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <i class="fas fa-paper-plane me-2"></i>Submit Review
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -120,41 +158,67 @@ if (isset($_SESSION['user_name'])) {
         </div>
 
         <?php if (isset($_SESSION['user_name']) && count($user_reviews) > 0): ?>
-            <div class="row mt-4">
+            <div class="row mt-5 slide-in">
                 <div class="col-md-12">
-                    <h3>Review Saya</h3>
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Museum</th>
-                                    <th>Rating</th>
-                                    <th>Review</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($user_reviews as $museum => $review): ?>
-                                    <tr>
-                                        <td><?php echo htmlspecialchars($museum); ?></td>
-                                        <td>
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-list"></i>
+                        </div>
+                        <h3 class="mb-0 ms-3">Review Saya</h3>
+                    </div>
+                    <div class="row">
+                        <?php foreach ($user_reviews as $museum => $review): ?>
+                            <div class="col-md-6 mb-3">
+                                <div class="review-card">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <h5 class="mb-0">
+                                            <i class="fas fa-museum text-primary me-2"></i>
+                                            <?php echo htmlspecialchars($museum); ?>
+                                        </h5>
+                                    </div>
+                                    <div class="mb-2">
+                                        <div class="rating-stars">
                                             <?php 
                                             for ($i = 1; $i <= 5; $i++) {
-                                                echo $i <= $review['rating'] ? '★' : '☆';
+                                                $class = $i <= $review['rating'] ? 'star-filled' : 'star-empty';
+                                                echo '<span class="' . $class . '">★</span>';
                                             }
-                                            ?> (<?php echo $review['rating']; ?>)
-                                        </td>
-                                        <td><?php echo htmlspecialchars($review['review']); ?></td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
+                                            ?>
+                                            <span class="ms-2 text-muted">(<?php echo $review['rating']; ?>/5)</span>
+                                        </div>
+                                    </div>
+                                    <p class="mb-0 text-muted">
+                                        <i class="fas fa-quote-left me-2"></i>
+                                        <?php echo htmlspecialchars($review['review']); ?>
+                                    </p>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
                     </div>
-                    <a href="recommendations.php" class="btn btn-success mt-3">Lihat Rekomendasi Museum</a>
+                    <div class="text-center mt-4">
+                        <a href="recommendations.php" class="btn btn-success btn-lg">
+                            <i class="fas fa-magic me-2"></i>Lihat Rekomendasi Museum
+                        </a>
+                    </div>
                 </div>
             </div>
         <?php endif; ?>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Star preview on rating input
+        document.getElementById('rating')?.addEventListener('input', function() {
+            const rating = parseInt(this.value) || 0;
+            const preview = document.getElementById('starPreview');
+            if (preview && rating >= 1 && rating <= 5) {
+                let stars = '';
+                for (let i = 1; i <= 5; i++) {
+                    stars += i <= rating ? '<span class="star-filled">★</span>' : '<span class="star-empty">☆</span>';
+                }
+                preview.innerHTML = stars;
+            }
+        });
+    </script>
 </body>
 </html>
