@@ -52,17 +52,18 @@ if (isset($_SESSION['user_name'])) {
             <a class="navbar-brand" href="index.php">
                 <i class="fas fa-museum me-2"></i>Museum Recommendation
             </a>
-            <div class="navbar-nav ms-auto">
+            <div class="navbar-nav ms-auto d-flex align-items-center">
                 <a class="nav-link" href="index.php">
                     <i class="fas fa-home me-1"></i>Beranda
                 </a>
                 <?php if (isset($_SESSION['user_name'])): ?>
-                    <span class="navbar-text me-3">
-                        <i class="fas fa-user-circle me-2"></i>Halo, <?php echo htmlspecialchars($_SESSION['user_name']); ?>!
-                    </span>
                     <a class="nav-link" href="recommendations.php">
                         <i class="fas fa-star me-1"></i>Rekomendasi
                     </a>
+                    <span class="nav-link d-flex align-items-center pe-0">
+                        <i class="fas fa-user-circle me-2"></i>
+                        <span><?php echo htmlspecialchars($_SESSION['user_name']); ?></span>
+                    </span>
                     <a class="nav-link" href="logout.php">
                         <i class="fas fa-sign-out-alt me-1"></i>Logout
                     </a>

@@ -166,13 +166,17 @@ $stmt->close();
             <a class="navbar-brand" href="index.php">
                 <i class="fas fa-museum me-2"></i>Museum Recommendation
             </a>
-            <div class="navbar-nav ms-auto">
-                <span class="navbar-text me-3">
-                    <i class="fas fa-user-circle me-2"></i>Halo, <?php echo htmlspecialchars($current_user); ?>!
-                </span>
+            <div class="navbar-nav ms-auto d-flex align-items-center">
                 <a class="nav-link" href="index.php">
                     <i class="fas fa-home me-1"></i>Beranda
                 </a>
+                <a class="nav-link" href="review.php">
+                    <i class="fas fa-edit me-1"></i>Review
+                </a>
+                <span class="nav-link d-flex align-items-center pe-0">
+                    <i class="fas fa-user-circle me-2"></i>
+                    <span><?php echo htmlspecialchars($current_user); ?></span>
+                </span>
                 <a class="nav-link" href="logout.php">
                     <i class="fas fa-sign-out-alt me-1"></i>Logout
                 </a>
