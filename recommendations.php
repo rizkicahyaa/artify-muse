@@ -167,9 +167,6 @@ $stmt->close();
                 <i class="fas fa-museum me-2"></i>Museum Recommendation
             </a>
             <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="dashboard.php">
-                    <i class="fas fa-th-large me-1"></i>Dashboard
-                </a>
                 <span class="navbar-text me-3">
                     <i class="fas fa-user-circle me-2"></i>Halo, <?php echo htmlspecialchars($current_user); ?>!
                 </span>
