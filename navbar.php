@@ -7,7 +7,7 @@ $current_page = isset($current_page) ? $current_page : '';
 <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
         <a class="navbar-brand" href="index.php">
-            <i class="fas fa-museum me-2"></i>Museum Recommendation
+            <i class="fas fa-museum me-2"></i>Artify
         </a>
         <div class="navbar-nav ms-auto d-flex align-items-center">
             <?php if ($current_page != 'index'): ?>
