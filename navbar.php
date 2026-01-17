@@ -1,9 +1,3 @@
-<?php
-// Navbar component untuk semua halaman
-// Pastikan session sudah dimulai sebelum include file ini
-// Parameter $current_page untuk menentukan halaman aktif (opsional)
-$current_page = isset($current_page) ? $current_page : '';
-?>
 <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
         <a class="navbar-brand" href="index.php">
@@ -14,11 +8,9 @@ $current_page = isset($current_page) ? $current_page : '';
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <div class="navbar-nav ms-auto align-items-lg-center">
-                <?php if ($current_page != 'index'): ?>
-                    <a class="nav-link" href="index.php">
-                        <i class="fas fa-home me-1"></i>Beranda
-                    </a>
-                <?php endif; ?>
+                <a class="nav-link" href="index.php">
+                    <i class="fas fa-home me-1"></i>Beranda
+                </a>
                 <a class="nav-link" href="review.php">
                     <i class="fas fa-edit me-1"></i>Review
                 </a>

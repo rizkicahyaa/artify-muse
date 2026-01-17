@@ -32,6 +32,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <?php 
+    $current_page = 'login';
+    include 'navbar.php'; 
+    ?>
     <div class="container mt-5 mb-5">
         <div class="row justify-content-center">
             <div class="col-md-5">
