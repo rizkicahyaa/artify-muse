@@ -22,6 +22,8 @@ body {
     font-family: "Nunito", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     min-height: 100vh;
     position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 body::before {
@@ -565,7 +567,7 @@ body::before {
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
     backdrop-filter: blur(10px);
     padding: 1.5rem 0;
-    margin-top: 4rem;
+    margin-top: auto;
 }
 
 .footer-content {
