@@ -505,3 +505,100 @@ body::before {
 .museum-actions {
     margin-top: 1rem;
 }
+
+/* Footer Styles - Mengikuti style navbar */
+.footer {
+    background: var(--gradient-1) !important;
+    box-shadow: 0 -4px 20px rgba(0,0,0,.15);
+    backdrop-filter: blur(10px);
+    padding: 1.5rem 0;
+    margin-top: 4rem;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.footer-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: -0.5px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footer-brand:hover {
+    color: white;
+    opacity: 0.9;
+}
+
+.footer-nav {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.footer-link {
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+}
+
+.footer-link:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    color: white;
+}
+
+.footer-copyright {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    text-align: center;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive Footer */
+@media (max-width: 768px) {
+    .footer {
+        padding: 1.25rem 0;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .footer-brand {
+        font-size: 1.3rem;
+    }
+    
+    .footer-nav {
+        justify-content: center;
+        width: 100%;
+    }
+    
+    .footer-link {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
+    }
+    
+    .footer-copyright {
+        font-size: 0.85rem;
+        margin-top: 0.75rem;
+        padding-top: 0.75rem;
+    }
+}
