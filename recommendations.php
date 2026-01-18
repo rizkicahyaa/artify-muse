@@ -195,7 +195,7 @@ $stmt->close();
                         <h4>Belum Ada Rekomendasi</h4>
                         <p>Belum ada rekomendasi yang dapat diberikan. Coba berikan lebih banyak review untuk mendapatkan rekomendasi yang lebih akurat.</p>
                         <a href="index.php" class="btn btn-primary">
-                            <i class="fas fa-edit me-2"></i>Berikan Review Lagi
+                            Berikan Review Lagi
                         </a>
                     </div>
                 </div>

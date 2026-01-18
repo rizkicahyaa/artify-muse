@@ -20,7 +20,7 @@
                     </a>
                     <span class="nav-link d-flex align-items-center pe-0">
                         <i class="fas fa-user-circle me-2"></i>
-                        <span><?php echo htmlspecialchars($_SESSION['user_name']); ?></span>
+                        <span>Halo, <?php echo htmlspecialchars($_SESSION['user_name']); ?></span>
                     </span>
                     <a class="nav-link" href="logout.php">
                         <i class="fas fa-sign-out-alt me-1"></i>Logout
