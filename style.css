@@ -259,7 +259,7 @@ body::before {
 
 .table {
     background-color: white;
-    border-radius: 12px;
+    /* border-radius: 12px; */
     overflow: hidden;
 }
 
